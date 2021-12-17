@@ -1,0 +1,18 @@
+import requests
+import re
+from bs4 import BeautifulSoup
+
+user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:77.0) Gecko/20100101 Firefox/77.0'
+
+url=r'https://insights.blackcoffer.com/how-is-login-logout-time-tracking-for-employees-in-office-done-by-ai/'
+headers = {'User-Agent': user_agent}
+response= requests.get(url,headers=headers)
+print(response.status_code)
+soup= BeautifulSoup(response.content,'html.parser')
+link1= soup.find('h1',{'class':'entry-title'})
+link = soup.find('div',{'class':'td-post-content'})
+report = open('scrapy.txt','w')
+report.write(link1.get_text())
+report.write(link.get_text())
+report.close()
+#print(link1.get_text())
